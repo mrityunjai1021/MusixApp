@@ -1,0 +1,96 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
+
+<app-main-nav>
+
+
+
+<div class="divif" *ngIf="isLoggedin; else elseBlock">
+  <h1 class="heading">Your Favourites</h1>
+  You have not logged in, Please login to access this feature.
+
+  <br>
+  <br>
+  <button class="but2" style="width:auto;" routerLink="/home">Login</button>
+
+
+
+</div>
+<ng-template #elseBlock>
+
+  <div class="background"> 
+  <h1 class="heading">Your Favourites</h1>  
+
+
+<input class="form-control" type="text" name="searching" [(ngModel)]="searching" (ngModelChange)="Searchingfun()"
+
+placeholder="Search your favourites">
+
+
+<div class="card-container">
+  
+   
+    <mat-card *ngFor="let music of favmusicbyid | paginate: {itemsPerPage:6, currentPage:p};">
+        <h3>{{music.trackName}}</h3>
+        <mat-icon class="song-delete">favorite</mat-icon>
+        <mat-accordion>
+            
+            <mat-expansion-panel hideToggle>
+              <mat-expansion-panel-header>
+                <mat-panel-title class="song-center">
+                   Artist
+                </mat-panel-title>
+                <mat-panel-description class="song-center">
+                     {{music.artistName}}
+                     <img mat-card-img [src]="music.artworkUrl100">
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <!-- <div class="p-2"><img mat-card-img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1574583246/AAA/2.jpg" alt="user" width="100" class="rounded-circle"></div> -->
+            </mat-expansion-panel>
+            <mat-expansion-panel (opened)="panelOpenState = true"
+                                 (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title class="song-center">
+                    Album
+                </mat-panel-title>
+                <mat-panel-description class="song-center">
+                    {{ music.albumName }}
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <mat-card-content>
+                <audio controls [id]="index">
+                    <source [src]="music.trackurl" type="audio/ogg">
+                    <source [src]="music.trackurl" type="audio/mpeg">
+                </audio>
+                <div class="card-details">
+                    <p>Genre: {{ music.trackGenre }} </p>
+                </div>
+            </mat-card-content>
+            <mat-card-actions>
+               
+                <span class="icon-edit" routerLink="/comment"><mat-icon (click)="passvaluetocomment(music.trackName,music.trackId)" style="width:auto;">mode_edit</mat-icon></span>
+                 
+            </mat-card-actions>
+           
+    
+            </mat-expansion-panel>
+
+            <br>
+            <br>
+
+            
+            <button #playBtn mat-flat-button color="primary" (click)="playSong(music)">PLAY</button>
+            <button #stopBtn mat-button color="primary" (click)="stopSong(music)">STOP</button>
+           
+          </mat-accordion>
+          
+       
+    </mat-card> 
+
+</div>
+<pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>
+</ng-template>
+</app-main-nav>

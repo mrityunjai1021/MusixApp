@@ -1,0 +1,135 @@
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #drawer class="sidenav" fixedInViewport="true" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+        <mat-toolbar>
+            <mat-toolbar-row class="font-mont-bold">
+                Hello, {{name}}
+                <span class="material-icons edit" routerLink="/profile">
+          edit
+          </span>
+                <!-- make it dynamic -->
+            </mat-toolbar-row>
+        </mat-toolbar>
+
+         <div class="divif" *ngIf="isLoggedin">
+
+            <!-- <img class="img-responsive img-size" src={{userurl}}> -->
+            <img class="img-responsive img-size" src="../../assets/images/user.jpeg">
+
+        </div> 
+
+         <ng-template #elseimg>
+
+            <img class="img-responsive img-size" src="../../assets/images/nouser.jpeg">
+
+        </ng-template> 
+
+        <mat-divider></mat-divider>
+        <mat-nav-list>
+            <a mat-list-item class="nav1 font-mont" routerLink="/favourites">Your Favourite Songs
+        <span class="material-icons deeppurple" >
+          favorite
+          </span>
+          
+      </a>
+
+            <br>
+            <a mat-list-item class="nav2 font-mont" routerLink="/recommend">Recommended Songs
+        <span class="material-icons deeppurple">
+          recommend
+          </span>
+    </a>
+
+            <br>
+            <a mat-list-item class="nav2 font-mont" routerLink="/country">Country Special Songs
+        <span class="material-icons deeppurple">
+          grade
+          </span>
+    </a>
+
+            <!-- <a mat-list-item href="#">Link 3</a> -->
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        
+        
+        <mat-toolbar color="primary">
+
+            
+
+            <div class="divif" *ngIf="isLoggedin; else elseBlock">
+
+                <mat-toolbar-row color="primary">
+                    <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
+                        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+                      </button>
+
+
+                    <span class="material-icons home myDIV" style="float: right;" (click)="cleardata()" routerLink="/home"> logout</span>
+                    <div class="hide" style="float: right;" routerLink="/home" (click)="cleardata()"><b>Logout</b></div>
+
+
+
+                    <!-- <mat-icon class="material-icons home" (click)="cleardata()" aria-hidden="true" routerLink="/home">
+          logout
+        </mat-icon>
+
+       
+        <div class="hide"  style="float: right;">Logout</div> -->
+
+                </mat-toolbar-row>
+
+            </div>
+            
+
+            <ng-template #elseBlock >
+                <span class="log-in-strip"><marquee>Log in to enjoy all the features of the web app.</marquee></span>
+
+                <mat-toolbar-row color="primary" class="navbar">
+                    <md-button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
+                        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+                      </md-button>
+                      <span flex=""></span>
+                      <!-- <mat-icon class="material-icons home" aria-hidden="true" routerLink="">
+                        home
+                    </mat-icon> -->
+
+                    <span class="material-icons home myDIV" style="float: right; " routerLink="/home"> login</span>
+                    <div class="hide" style="float: right; font-family: 'Montserrat', sans-serif;" routerLink="/home"><b> &nbsp; Login</b></div>
+
+                </mat-toolbar-row>
+
+
+            </ng-template>
+
+            
+
+            <mat-toolbar-row color="primary">
+                <div class="musix">
+                    <span routerLink="" class="musix-font">Musix App</span>
+                </div> 
+                
+            </mat-toolbar-row>
+
+            <mat-toolbar-row>
+
+                <!-- <marquee direction="down" behavior="alternate" style="border:none">
+                    <marquee behavior="alternate" scrollamount="18">
+                        Let The Music Take You Away!
+                    </marquee>
+                </marquee> -->
+
+                <!-- 
+        <span class="example-spacer"></span>
+        <mat-icon class="example-icon" aria-hidden="true" aria-label="Example user verified icon">search</mat-icon> -->
+            </mat-toolbar-row>
+            
+
+
+        </mat-toolbar>
+    
+        <ng-content></ng-content>
+        <!-- Add Content Here -->
+        
+    </mat-sidenav-content>
+    
+</mat-sidenav-container>

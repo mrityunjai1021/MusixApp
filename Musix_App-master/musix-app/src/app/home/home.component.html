@@ -1,0 +1,188 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<div class="showcase">
+
+    <header>
+        <h2 class="logo">Musix App</h2>
+        
+            
+    </header>
+
+    <br/>
+    <br/>
+
+    <video autoplay muted loop id="myVideo">
+        <source src="../../assets/images/disco-ball-video.mp4" type="video/mp4">
+      </video>
+      
+      <!-- <div class="overlay"></div> -->
+      <div class="text">
+        <h3>Welcome to the Musix App. Tune in to your favourite music with us!!</h3>
+        
+        <div class="homebuttons">
+
+            <div>
+                <button class="but1 main-button" onclick="document.getElementById('id01').style.display='block'" style="width:auto;" >Login</button>
+                <button class="but2 main-button" onclick="document.getElementById('id02').style.display='block'" style="width:auto;">Sign Up</button>
+            </div>
+            <div >
+                <button class="but3 main-button" style="width:auto;" routerLink="/dashboard" >Continue without Login..</button>
+            </div>
+            <div><p> You won't be able to enjoy all the exciting features of the app without logging in! </p></div>
+        </div>
+        
+
+        <!-- Login Modal -->
+        <div id="id01" class="modal">
+            <form class="modal-content animate container" [formGroup]="loginForm" (ngSubmit)="signIn()">
+                <div onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</div>
+                <div class="imgcontainer">
+                    <h1>Log In Form</h1>
+                    
+                </div>
+                <div class="form-group align-center">
+                    <label for="username" >Email-Id</label>
+                    <input type="email" placeholder="Enter Your Email-Id" aria-describedby="emailHelp" class="form-control" formControlName="username">
+                    <!--dirty-- means writing data and then removing, touched-came in focus, invaid- refersto no data-->
+                    <small *ngIf="username.invalid && (username.dirty || username.touched)">
+                  Username is a Mandatory Field
+              </small>
+    
+                </div>
+                <div class="form-group align-center">
+                    <label for="password">Password</label>
+                    <input type="password" placeholder="Enter Password" class="password form-control" formControlName="password">
+                    <small *ngIf="password.invalid && (password.dirty || password.touched)">
+                  <small *ngIf="password.errors.required">
+                      password can not be left blank
+                  </small>
+                    <small *ngIf="password.errors.minlength">
+                      password should have atleast 6 characters
+                  </small>
+                    </small>
+                </div>
+                <div>
+                    <!--<button value="Sign In">Sign In</button>-->
+                    <input class="submit btn btn-primary btn-info btn-block btn-round" type="submit" [disabled]="!loginForm.valid" value="Sign In">
+                </div>
+    
+            </form>
+      </div>
+   
+
+    
+    
+    <script>
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();   
+    });
+    </script>
+    
+        
+        
+
+
+    <script>
+        // Get the modal
+        var modal = document.getElementById('id01');
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+
+
+    <div id="id02" class="modal">
+        <form class="modal-content animate container" [formGroup]="registerForm">
+
+            <div class="imgcontainer">
+                <h1>Sign Up Form</h1>
+                <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
+            </div>
+
+
+            <div class="form-group align-center">
+                <label for="name">Name</label>
+                <input type="text" placeholder="Enter Your name" class="form-control" formControlName="name">
+                <!--dirty-- means writing data and then removing, touched-came in focus, invaid- refersto no data-->
+                <small *ngIf="name.invalid && (name.dirty || name.touched)">
+            Name is not valid
+        </small>
+
+            </div>
+
+
+            <div class="form-group align-center">
+                <label for="email">Email-Id</label>
+                <input type="email" placeholder="Enter Your Email-Id" class="form-control" formControlName="email">
+                <!--dirty-- means writing data and then removing, touched-came in focus, invaid- refersto no data-->
+                <small *ngIf="email.invalid && (email.dirty || email.touched)">
+              Email-Id is not valid
+          </small>
+
+            </div>
+            <div class="form-group align-center">
+                <label for="password">Password</label>
+                <input type="password" placeholder="Enter Password" class="form-control" formControlName="pass">
+                <small *ngIf="pass.invalid && (pass.dirty || pass.touched)">
+              <small *ngIf="pass.errors.required">
+                  password can not be left blank
+              </small>
+                <small *ngIf="pass.errors.minlength">
+                  password should have atleast 8 characters
+              </small>
+                </small>
+            </div>
+            <div class="form-group align-center">
+                <label for="confpass">Confirm Password</label>
+                <input type="password" placeholder="Confirm Password" class="form-control" formControlName="confpass">
+                <small *ngIf="confpass.invalid && (confpass.dirty || confpass.touched)">
+            <small *ngIf="confpass.errors.required">
+                password can not be left blank
+            </small>
+                <small *ngIf="confpass.errors.minlength">
+                password should have atleast 8 characters
+            </small>
+                </small>
+            </div>
+            <div class="form-group align-center">
+                <small *ngIf="matchpass">
+          confirm password is not matching
+      </small>
+            </div>
+
+            <p><label class="img" for="file" style="cursor: pointer;">Upload Image</label></p>
+            <p><img id="output" width="200" /></p>
+            <p><input type="file" accept="image/*" name="image" id="file" formControlName="image" onchange="document.getElementById('output').src = window.URL.createObjectURL(event.target.files[0])" (change)="onFileSelected($event)" style="display: none;"></p> 
+
+
+            
+            <button class="submit btn btn-primary btn-info btn-block btn-round" type="submit" [disabled]="!registerForm.valid" color="primary" (click)="register()" onclick="document.getElementById('id02').style.display='none'">
+        Register
+      </button>
+
+        </form>
+
+
+    </div>
+
+    <script>
+        // Get the modal
+        var modal1 = document.getElementById('id02');
+
+        // When the user clicks anywhere outside of the modal1, close it
+        window.onclick = function(event) {
+            if (event.target == modal1) {
+                modal1.style.display = "none";
+            }
+        }
+    </script>
+
+
+
+</div>
+</div>
